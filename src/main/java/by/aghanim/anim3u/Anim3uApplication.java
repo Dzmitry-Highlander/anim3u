@@ -14,6 +14,7 @@ public class Anim3uApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 320, 120);
 
         stage.setTitle("Anim3u");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
