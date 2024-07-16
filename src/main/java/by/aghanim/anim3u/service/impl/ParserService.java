@@ -46,7 +46,8 @@ public class ParserService implements IParserService {
                 episodeNumber++;
             }
 
-            try (Writer out = new FileWriter("%s.m3u".formatted(title), false)) {
+            try (Writer out = new FileWriter(
+                    "%s.m3u".formatted(title.replaceAll("[/:*?<>|]", "")), false)) {
                 out.write(output);
             }
         } catch (IOException e) {
