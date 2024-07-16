@@ -15,6 +15,7 @@
     <javafx.version>21.0.3</javafx.version>
     <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
     <jackson>2.17.2</jackson>
+    <maven.shade>3.5.3</maven.shade>
   </properties>
 
   <dependencies>
@@ -60,7 +61,7 @@
       <plugin>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
-        <version>0.0.8</version>
+        <version>${javafx.maven.plugin.version}</version>
         <executions>
           <execution>
             <id>default-cli</id>
@@ -78,8 +79,9 @@
       </plugin>
 
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>${maven.shade}</version>
         <executions>
           <execution>
             <goals>
