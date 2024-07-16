@@ -12,22 +12,33 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class Anim3uController {
-    private static final String ERROR_MESSAGE_BLANK_INPUT = "Please, enter title";
-    private static final String ERROR_MESSAGE_INVALID_INPUT = "You probably entered an invalid character";
+    private static final String ERROR_MESSAGE_BLANK_INPUT = "Please, enter anime title!";
+    private static final String ERROR_MESSAGE_INVALID_INPUT = "Invalid anime title name!";
+    private static final String DONE_M3U8_MESSAGE = "File m3u8 created!";
 
     @FXML
-    private Label createMessageLabel;
+    private Button closeButton;
+    @FXML
+    private Label messageLabel;
     @FXML
     private TextField titleTextField;
     @FXML
-    private Button createButton;
+    private Button createM3U8Button;
 
-    public void createButtonOnAction() {
+    public void createM3U8ButtonOnAction() {
         if (!titleTextField.getText().isBlank()) {
             create(titleTextField.getText());
+
+            messageLabel.setText(DONE_M3U8_MESSAGE);
         } else {
-            createMessageLabel.setText(ERROR_MESSAGE_BLANK_INPUT);
+            messageLabel.setText(ERROR_MESSAGE_BLANK_INPUT);
         }
+    }
+
+    public void closeButtonOnAction() {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+
+        stage.close();
     }
 
     private void create(String title) {
@@ -35,13 +46,9 @@ public class Anim3uController {
         final IParserService parserService = new ParserService();
 
         try {
-            Stage stage = (Stage) createButton.getScene().getWindow();
-
             parserService.save(urlService.get(title));
-
-            stage.close();
         } catch (InvalidInputException e) {
-            createMessageLabel.setText(ERROR_MESSAGE_INVALID_INPUT);
+            messageLabel.setText(ERROR_MESSAGE_INVALID_INPUT);
         }
     }
 }
