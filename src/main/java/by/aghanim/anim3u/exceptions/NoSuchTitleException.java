@@ -1,8 +1,10 @@
 package by.aghanim.anim3u.exceptions;
 
-import java.io.IOException;
+public class NoSuchTitleException extends Exception {
+    public NoSuchTitleException() {
+        super("No such anime title!");
+    }
 
-public class NoSuchTitleException extends IOException {
     public NoSuchTitleException(String message) {
         super(message);
     }
