@@ -1,6 +1,7 @@
 package by.aghanim.anim3u.service.impl;
 
 import by.aghanim.anim3u.exceptions.InvalidInputException;
+import by.aghanim.anim3u.exceptions.NoSuchTitleException;
 import by.aghanim.anim3u.service.api.IParserService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,38 +18,53 @@ public class ParserService implements IParserService {
                             https://cache.libria.fun/%s""";
 
     @Override
-    public void save(URL url) throws InvalidInputException {
+    public void save(URL url) throws InvalidInputException, NoSuchTitleException {
         String output = "#EXTM3U";
         ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode root;
 
         try {
-            JsonNode root = objectMapper.readTree(url);
-            JsonNode list = root.path("list").get(0);
-            JsonNode episodesNode = list.path("player").path("list");
-            Iterator<JsonNode> elements = episodesNode.elements();
-            String title = list.path("names").path("en").asText();
-            String logo = list.path("posters").path("small").path("url").asText();
-            int episodeNumber = 1;
+            root = objectMapper.readTree(url);
+        } catch (IOException e) {
+            throw new InvalidInputException(e.getMessage());
+        }
 
-            while(elements.hasNext()) {
-                JsonNode episode = elements.next();
+        try {
+            if (root.path("list").isEmpty()) {
+                throw new NoSuchTitleException();
+            }
+        } catch (NoSuchTitleException e) {
+            throw new NoSuchTitleException(e.getMessage());
+        }
 
-                if (episode.path("hls").path("fhd").isNull()) {
-                    String link = episode.path("hls").path("hd").asText();
 
-                    output = output.concat(String.format(M3U8_FILE_STRUCTURE, logo, title, episodeNumber, link));
-                } else {
-                    String link = episode.path("hls").path("fhd").asText();
 
-                    output = output.concat(String.format(M3U8_FILE_STRUCTURE, logo, title, episodeNumber, link));
-                }
+        JsonNode list = root.path("list").get(0);
+        JsonNode episodesNode = list.path("player").path("list");
+        Iterator<JsonNode> elements = episodesNode.elements();
+        String title = list.path("names").path("en").asText();
+        String logo = list.path("posters").path("small").path("url").asText();
+        int episodeNumber = 1;
 
-                episodeNumber++;
+        while(elements.hasNext()) {
+            JsonNode episode = elements.next();
+
+            if (episode.path("hls").path("fhd").isNull()) {
+                String link = episode.path("hls").path("hd").asText();
+
+                output = output.concat(String.format(M3U8_FILE_STRUCTURE, logo, title, episodeNumber, link));
+            } else {
+                String link = episode.path("hls").path("fhd").asText();
+
+                output = output.concat(String.format(M3U8_FILE_STRUCTURE, logo, title, episodeNumber, link));
             }
 
-            try (Writer out = new FileWriter("%s.m3u".formatted(title), false)) {
-                out.write(output);
-            }
+            episodeNumber++;
+        }
+
+        try (Writer out = new FileWriter("%s.m3u".formatted(
+                title.replaceAll("[\\\\/:*?\"<>|]", "")), false)) {
+            out.write(output);
         } catch (IOException e) {
             throw new InvalidInputException(e.getMessage());
         }

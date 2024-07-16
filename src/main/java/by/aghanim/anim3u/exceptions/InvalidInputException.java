@@ -1,8 +1,6 @@
 package by.aghanim.anim3u.exceptions;
 
-import java.io.IOException;
-
-public class InvalidInputException extends IOException {
+public class InvalidInputException extends Exception {
     public InvalidInputException(String message) {
         super(message);
     }

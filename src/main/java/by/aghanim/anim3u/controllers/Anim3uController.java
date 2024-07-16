@@ -1,6 +1,7 @@
 package by.aghanim.anim3u.controllers;
 
 import by.aghanim.anim3u.exceptions.InvalidInputException;
+import by.aghanim.anim3u.exceptions.NoSuchTitleException;
 import by.aghanim.anim3u.service.api.IParserService;
 import by.aghanim.anim3u.service.api.IURLService;
 import by.aghanim.anim3u.service.impl.ParserService;
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 public class Anim3uController {
     private static final String ERROR_MESSAGE_BLANK_INPUT = "Please, enter anime title!";
     private static final String ERROR_MESSAGE_INVALID_INPUT = "Invalid anime title name!";
+    private static final String ERROR_MESSAGE_NO_SUCH_TITLE = "There is no such anime!";
     private static final String M3U8_CREATED_MESSAGE = "File *.m3u8 created!";
 
     @FXML
@@ -63,8 +65,12 @@ public class Anim3uController {
             parserService.save(urlService.get(title));
 
             messageLabel.setText(M3U8_CREATED_MESSAGE);
-        } catch (InvalidInputException e) {
-            messageLabel.setText(ERROR_MESSAGE_INVALID_INPUT);
+        } catch (InvalidInputException | NoSuchTitleException e) {
+            if (e instanceof InvalidInputException) {
+                messageLabel.setText(ERROR_MESSAGE_INVALID_INPUT);
+            } else {
+                messageLabel.setText(ERROR_MESSAGE_NO_SUCH_TITLE);
+            }
         }
     }
 }
