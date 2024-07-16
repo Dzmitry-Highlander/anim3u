@@ -24,7 +24,7 @@
    <ImageView fitHeight="378.0" fitWidth="400.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
       <Image url="@image/zero_two.png" />
    </ImageView>
-   <TextField fx:id="titleTextField" layoutX="250.0" layoutY="185.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="225.0" promptText="Enter Anime Title">
+   <TextField fx:id="titleTextField" layoutX="250.0" layoutY="185.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="225.0" promptText="Enter Anime Title" style="-fx-text-box-border: #a63940; -fx-focus-color: #B15258;">
       <font>
          <Font name="Calibri Bold" size="14.0" />
       </font>
