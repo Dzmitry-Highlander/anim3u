@@ -47,7 +47,7 @@ public class ParserService implements IParserService {
             }
 
             try (Writer out = new FileWriter(
-                    "%s.m3u".formatted(title.replaceAll("[/:*?<>|]", "")), false)) {
+                    "%s.m3u".formatted(title.replaceAll("[\\\\/:*?\"<>|]", "")), false)) {
                 out.write(output);
             }
         } catch (IOException e) {
