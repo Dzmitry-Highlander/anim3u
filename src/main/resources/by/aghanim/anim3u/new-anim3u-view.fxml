@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/21.0.3" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.aghanim.anim3u.controllers.Anim3uController">
+   <Pane blendMode="SRC_ATOP" prefHeight="400.0" prefWidth="150.0" style="-fx-background-color: #a63940;">
+      <Label contentDisplay="CENTER" layoutX="98.0" layoutY="14.0" prefHeight="54.0" prefWidth="52.0" text="Ani" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Calibri Bold" size="36.0" />
+         </font>
+      </Label>
+   </Pane>
+   <Label contentDisplay="CENTER" layoutX="150.0" layoutY="14.0" prefHeight="54.0" prefWidth="122.0" text="Libria" textAlignment="CENTER" textFill="#a63940">
+      <font>
+         <Font name="Calibri Bold" size="36.0" />
+      </font>
+   </Label>
+   <ImageView fitHeight="378.0" fitWidth="400.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@image/zero_two.png" />
+   </ImageView>
+   <TextField fx:id="titleTextField" layoutX="250.0" layoutY="185.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="225.0" promptText="Enter Anime Title" style="-fx-text-box-border: #a63940; -fx-focus-color: #a63940; -fx-faint-focus-color: transparent;">
+      <font>
+         <Font name="Calibri Bold" size="14.0" />
+      </font>
+   </TextField>
+   <Button fx:id="closeButton" alignment="CENTER" contentDisplay="CENTER" layoutX="445.0" layoutY="26.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#closeButtonOnAction" onMousePressed="#closeButtonOnMousePressed" onMouseReleased="#closeButtonOnMouseReleased" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #a63940;" textFill="WHITE">
+      <font>
+         <Font name="Calibri Bold" size="14.0" />
+      </font>
+      <graphic>
+         <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@image/icon_close.png" />
+         </ImageView>
+      </graphic>
+   </Button>
+   <Button fx:id="createM3U8Button" alignment="CENTER" contentDisplay="CENTER" layoutX="303.0" layoutY="225.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#createM3U8ButtonOnAction" onMousePressed="#createM3U8ButtonOnMousePressed" onMouseReleased="#createM3U8ButtonOnMouseReleased" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #a63940;" text="m3u8" textFill="WHITE">
+      <font>
+         <Font name="Calibri Bold" size="14.0" />
+      </font>
+   </Button>
+   <Label fx:id="messageLabel" alignment="CENTER" layoutX="250.0" layoutY="138.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="225.0" textFill="#993333">
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+   </Label>
+</Pane>
