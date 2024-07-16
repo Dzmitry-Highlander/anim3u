@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 public class Anim3uController {
     private static final String ERROR_MESSAGE_BLANK_INPUT = "Please, enter anime title!";
     private static final String ERROR_MESSAGE_INVALID_INPUT = "Invalid anime title name!";
-    private static final String DONE_M3U8_MESSAGE = "File m3u8 created!";
+    private static final String M3U8_CREATED_MESSAGE = "File *.m3u8 created!";
 
     @FXML
     private Button closeButton;
@@ -25,14 +25,12 @@ public class Anim3uController {
     @FXML
     private Button createM3U8Button;
 
-    public void createM3U8ButtonOnAction() {
-        if (!titleTextField.getText().isBlank()) {
-            create(titleTextField.getText());
+    public void closeButtonOnMousePressed() {
+        closeButton.setStyle("-fx-background-color: #74282d");
+    }
 
-            messageLabel.setText(DONE_M3U8_MESSAGE);
-        } else {
-            messageLabel.setText(ERROR_MESSAGE_BLANK_INPUT);
-        }
+    public void closeButtonOnMouseReleased() {
+        closeButton.setStyle("-fx-background-color: #a63940;");
     }
 
     public void closeButtonOnAction() {
@@ -41,12 +39,30 @@ public class Anim3uController {
         stage.close();
     }
 
-    private void create(String title) {
+    public void createM3U8ButtonOnMousePressed() {
+        createM3U8Button.setStyle("-fx-background-color: #74282d");
+    }
+
+    public void createM3U8ButtonOnMouseReleased() {
+        createM3U8Button.setStyle("-fx-background-color: #a63940;");
+    }
+
+    public void createM3U8ButtonOnAction() {
+        if (!titleTextField.getText().isBlank()) {
+            createM3U8(titleTextField.getText());
+        } else {
+            messageLabel.setText(ERROR_MESSAGE_BLANK_INPUT);
+        }
+    }
+
+    private void createM3U8(String title) {
         final IURLService urlService = new URLService();
         final IParserService parserService = new ParserService();
 
         try {
             parserService.save(urlService.get(title));
+
+            messageLabel.setText(M3U8_CREATED_MESSAGE);
         } catch (InvalidInputException e) {
             messageLabel.setText(ERROR_MESSAGE_INVALID_INPUT);
         }
