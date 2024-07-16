@@ -23,6 +23,11 @@ public class ParserService implements IParserService {
 
         try {
             JsonNode root = objectMapper.readTree(url);
+
+            if (root.path("list").isEmpty()) {
+                throw new InvalidInputException("No such title!");
+            }
+
             JsonNode list = root.path("list").get(0);
             JsonNode episodesNode = list.path("player").path("list");
             Iterator<JsonNode> elements = episodesNode.elements();
